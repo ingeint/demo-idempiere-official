@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  idempiere:
+    image: portus.ingeint.com/idempiere:7.1
+    ports:
+      - 8181:8080
+    environment:
+      - TZ=America/Guayaquil
+    networks:
+      - idempiere_demo
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  postgres:
+    image: postgres:10
+    environment:
+      - TZ=America/Guayaquil
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - idempiere_demo
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+networks:
+  idempiere_demo:
+    external: true
