@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   idempiere:
-    image: portus.ingeint.com/idempiere:7.1
+    image: idempiere:7.1
     ports:
       - 8181:8080
     environment:
