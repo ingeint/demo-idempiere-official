@@ -4,7 +4,7 @@ services:
   idempiere:
     image: portus.ingeint.com/idempiere:7.1
     ports:
-      - 8181:8181
+      - 8181:8080
     environment:
       - TZ=America/Guayaquil
     networks:
