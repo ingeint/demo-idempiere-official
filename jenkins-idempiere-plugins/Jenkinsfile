@@ -1,0 +1,75 @@
+pipeline {
+    agent none
+    environment {
+        IDEMPIERE_REPOSITORY = "/idempiere"
+
+        PLUGINS_PATH = "/opt/idempiere/plugins"
+        PLUGIN_VERSION = "8.2.0"
+
+        DETAILEDNAMES = "org.globalqss.idempiere.LCO.detailednames"
+        WITHHOLDINGS = "org.globalqss.idempiere.LCO.withholdings"
+    }
+    stages {
+        stage('Build Artefact') {
+            agent {
+                docker {
+                    image 'idempiere:source-release-8.2'                    
+                }
+            }
+            steps {
+
+                sh 'ls /idempiere'
+                
+                dir('lco'){
+                    git branch: 'master', url: 'https://github.com/ingeint/globalqss-idempiere-lec.git'
+                }                
+                dir('platform'){
+                    git branch: '8.2', url: 'https://github.com/ingeint/idempiere-target-platform-plugin.git'
+                    
+                    sh './plugin-builder build ../lco/org.globalqss.idempiere.LCO.detailednames ../lco/org.globalqss.idempiere.LCO.withholdings '
+                }
+
+                archiveArtifacts artifacts: 'platform/target/', fingerprint: true
+                stash includes: 'platform/target/', name: 'target'
+            }
+        }
+        stage('Copy to demo INT') {
+            agent {
+                docker { image 'docker:19' }
+            }
+            when {
+                branch 'master'
+            }
+            environment {
+                IDEMPIERE_DOCKER_ID = sh(returnStdout: true, script: 'docker ps --filter "name=idempiere-demo-official_idempiere" --format "{{.ID}}"').trim()
+            }
+            steps {
+                unstash 'target'
+                sh 'docker cp platform/target/. $IDEMPIERE_DOCKER_ID:$PLUGINS_PATH'
+            }
+        }
+        stage('Publish to iDempiere demo') {
+            agent {
+                docker {
+                    image 'portus.ingeint.com/idempiere-deployer:8.2'
+                    args '--network host'
+                    registryUrl 'https://portus.ingeint.com'
+                    registryCredentialsId 'portus-ingeint'
+                }
+            }
+            when {
+                branch 'master'
+            }
+            environment {
+                IDEMPIERE_IP = '127.0.0.1'
+                IDEMPIERE_OSGI_PORT = '8612'
+            }
+            steps {
+                sh 'deployer deploy -h $IDEMPIERE_IP -p $IDEMPIERE_OSGI_PORT -n $DETAILEDNAMES -l 5 -j $PLUGINS_PATH/$DETAILEDNAMES-$PLUGIN_VERSION.$BUILD_NUMBER.jar'
+                sh 'sleep 2'
+                sh 'deployer deploy -h $IDEMPIERE_IP -p $IDEMPIERE_OSGI_PORT -n $WITHHOLDINGS -l 5 -j $PLUGINS_PATH/$WITHHOLDINGS-$PLUGIN_VERSION.$BUILD_NUMBER.jar'
+                sh 'sleep 2'               
+            }
+        }
+    }
+}
