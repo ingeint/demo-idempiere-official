@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   idempiere:
-    image: idempiereofficial/idempiere:daily
+    image: idempiereofficial/idempiere:8.2-demo
     ports:
       - 8091:8080
       - 8612:12612
