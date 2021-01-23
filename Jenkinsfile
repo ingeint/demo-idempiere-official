@@ -3,7 +3,7 @@ pipeline {
         docker { image 'docker:19' }
     }
     environment {
-        PROJECT_NAME = 'idempiere-demo-official'
+        PROJECT_NAME = 'idempiere-demo-official-release'
         NETWORK_NAME = 'idempiere_demo_official'
         REGISTRY_PASS = credentials('ingeint-registry-pass')
     }
