@@ -10,14 +10,8 @@ pipeline {
                 docker { image 'docker:19' }
             }
             steps {
-                sh 'docker rm -f source'
                 sh 'docker run -d --name source-release idempiere:source-release-8.2 sleep 60'
                 sh 'docker cp source:/source/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./idempiere'
-
-                sh 'ls /idempiere'
-                
-                archiveArtifacts artifacts: '/idempiere', fingerprint: true
-                stash includes: '/idempiere', name: 'workspace'
             }
         }
     }
