@@ -8,6 +8,7 @@ services:
       - 8612:12612
     environment:
       - TZ=America/Guayaquil
+      - MIGRATE_EXISTING_DATABASE=true
     networks:
       - idempiere_demo_official
     deploy:
