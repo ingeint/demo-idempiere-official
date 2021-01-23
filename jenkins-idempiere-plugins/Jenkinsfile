@@ -15,6 +15,9 @@ pipeline {
             }
             steps {
 
+                sh 'docker run -d --name source idempiere:source-release-8.2 sleep 200'
+                sh 'docker cp source:/source/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./idempiere'
+
                 sh 'ls /idempiere'
                 
                 archiveArtifacts artifacts: '/idempiere', fingerprint: true
