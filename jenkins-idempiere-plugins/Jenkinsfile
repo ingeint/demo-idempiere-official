@@ -16,8 +16,8 @@ pipeline {
                 sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER -p $REGISTRY_PASS'
                 sh 'docker run -d --name source portus.ingeint.com/idempiere-source sleep 60'
                 sh 'docker cp source:/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./source-idempiere '
-                archiveArtifacts artifacts: 'source-idempiere', fingerprint: true
-                  stash includes: 'source-idempiere', name: 'target'
+                archiveArtifacts artifacts: '/source-idempiere', fingerprint: true
+                  stash includes: '/source-idempiere', name: 'workspace'
                 sh 'docker rm -f source '
             }
         }
