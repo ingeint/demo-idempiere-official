@@ -4,7 +4,7 @@ pipeline {
     }
     environment {
         PROJECT_NAME = 'idempiere-demo-official'
-        NETWORK_NAME = 'idempiere_demo'
+        NETWORK_NAME = 'idempiere_demo_official'
         REGISTRY_PASS = credentials('ingeint-registry-pass')
     }
     stages {
