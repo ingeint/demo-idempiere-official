@@ -10,8 +10,6 @@ pipeline {
             agent {
                 docker { 
                      image 'portus.ingeint.com/idempiere-source:8.2'
-                     registryUrl 'https://portus.ingeint.com'
-                     registryCredentialsId 'portus-ingeint'
                      REGISTRY_PASS = credentials('ingeint-registry-pass')
                 }
             }
