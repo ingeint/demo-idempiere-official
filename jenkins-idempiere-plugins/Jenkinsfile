@@ -7,11 +7,7 @@ pipeline {
     stages {
         stage('Build Artefact') {
             agent {
-                docker {
-                    image 'portus.ingeint.com/source-release:8.2'
-                    registryUrl 'https://portus.ingeint.com'
-                    registryCredentialsId 'portus-ingeint'                 
-                }
+                docker { image 'docker:19' }
             }
             steps {
 
