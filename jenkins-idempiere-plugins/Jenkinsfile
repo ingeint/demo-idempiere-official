@@ -13,9 +13,9 @@ pipeline {
         stage('Build Artefact') {
             agent {
                 docker {
-                    image 'idempiere-release:8.2'
+                    image 'portus.ingeint.com/idempiere-source:8.2'
                     registryUrl 'https://portus.ingeint.com'
-                    registryCredentialsId 'portus-ingeint'                    
+                    registryCredentialsId 'portus-ingeint'                 
                 }
             }
             steps {
