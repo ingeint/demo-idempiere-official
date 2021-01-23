@@ -6,7 +6,7 @@ pipeline {
 
     }
     stages {
-        stageREGISTRY_PASS('Build Artefact') {
+        stage('Build Artefact') {
             agent {
                 docker { 
                      image 'portus.ingeint.com/idempiere-source:8.2'
