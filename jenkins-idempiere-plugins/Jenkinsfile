@@ -6,7 +6,7 @@ pipeline {
 
     }
     stages {
-        stage('Build Artefact') {
+        stageREGISTRY_PASS('Build Artefact') {
             agent {
                 docker { 
                      image 'portus.ingeint.com/idempiere-source:8.2'
@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
                 sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER -p $REGISTRY_PASS'
-                sh 'docker run -d --name source idempiere-source:8.2 sleep 60'
+                sh 'docker run -d --name source portus.ingeint.com/idempiere-source sleep 60'
                 sh 'docker cp source:/source/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./idempiere'
             }
         }
