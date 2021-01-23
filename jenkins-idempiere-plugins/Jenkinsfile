@@ -17,6 +17,7 @@ pipeline {
                 sh 'docker run -d --name source portus.ingeint.com/idempiere-source sleep 60'
                 sh 'docker cp source:/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./test '
                 sh 'ls'
+                sh 'docker rm -f source '
             }
         }
     }
