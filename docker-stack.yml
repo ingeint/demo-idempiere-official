@@ -9,6 +9,7 @@ services:
     environment:
       - TZ=America/Guayaquil
       - MIGRATE_EXISTING_DATABASE=true
+      - DB_NAME=idempiere_release
     networks:
       - idempiere_demo_official_release
     deploy:
