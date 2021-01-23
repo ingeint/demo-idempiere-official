@@ -9,7 +9,7 @@ services:
     environment:
       - TZ=America/Guayaquil
     networks:
-      - idempiere_demo
+      - idempiere_demo_official
     deploy:
       resources:
         limits:
@@ -25,7 +25,7 @@ services:
       - TZ=America/Guayaquil
       - POSTGRES_PASSWORD=postgres
     networks:
-      - idempiere_demo
+      - idempiere_demo_official
     deploy:
       resources:
         limits:
@@ -36,5 +36,5 @@ services:
           memory: 256M
 
 networks:
-  idempiere_demo:
+  idempiere_demo_official:
     external: true
