@@ -12,10 +12,11 @@ pipeline {
                      image 'portus.ingeint.com/idempiere-source:8.2'
                      registryUrl 'https://portus.ingeint.com'
                      registryCredentialsId 'portus-ingeint'
+                     REGISTRY_PASS = credentials('ingeint-registry-pass')
                 }
             }
             steps {
-                sh 'docker login $registryUrl -u $REGISTRY_USER -p $REGISTRY_PASS'
+                sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER -p $REGISTRY_PASS'
                 sh 'docker run -d --name source idempiere-source:8.2 sleep 60'
                 sh 'docker cp source:/source/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./idempiere'
             }
