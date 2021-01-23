@@ -10,7 +10,7 @@ services:
       - TZ=America/Guayaquil
       - MIGRATE_EXISTING_DATABASE=true
     networks:
-      - idempiere_demo_official
+      - idempiere_demo_official_release
     deploy:
       resources:
         limits:
