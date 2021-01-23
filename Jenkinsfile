@@ -5,7 +5,7 @@ pipeline {
     environment {
         PROJECT_NAME = 'idempiere-demo-official'
         NETWORK_NAME = 'idempiere_demo'
-        REGISTRY_PASS = credentials('ingeint-registry-pass')
+        REGISTRY_PASS = credentials('idempiere-docker-register')
     }
     stages {
         stage('Deploy iDempiere Demo') {
