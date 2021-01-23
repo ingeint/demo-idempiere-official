@@ -10,7 +10,6 @@ pipeline {
             agent {
                 docker { 
                      image 'portus.ingeint.com/idempiere-source:8.2'
-                     REGISTRY_PASS = credentials('ingeint-registry-pass')
                 }
             }
             steps {
