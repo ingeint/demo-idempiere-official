@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Deploy iDempiere Demo') {
             steps {
-                sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER -p $REGISTRY_PASS'
+                sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER --password-stdin $REGISTRY_PASS'
                 sh 'docker network create --driver overlay --scope swarm $NETWORK_NAME || true'
                 sh 'docker stack rm $PROJECT_NAME || true'
                 sh 'sleep 2'
