@@ -2,10 +2,10 @@ version: '3.7'
 
 services:
   idempiere:
-    image: idempiereofficial/idempiere:8.2
+    image: idempiereofficial/idempiere:daily
     ports:
-      - 8181:8080
-      - 40612:12612
+      - 8091:8080
+      - 8612:12612
     environment:
       - TZ=America/Guayaquil
     networks:
@@ -20,7 +20,7 @@ services:
           memory: 256M
 
   postgres:
-    image: postgres:12
+    image: postgres:13
     environment:
       - TZ=America/Guayaquil
       - POSTGRES_PASSWORD=postgres

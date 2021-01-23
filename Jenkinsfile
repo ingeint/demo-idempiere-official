@@ -2,9 +2,6 @@ pipeline {
     agent {
         docker { image 'docker:19' }
     }
-    triggers {
-        cron('@midnight')
-    }
     environment {
         PROJECT_NAME = 'idempiere-demo'
         NETWORK_NAME = 'idempiere_demo'
