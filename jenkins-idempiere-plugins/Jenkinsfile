@@ -16,8 +16,12 @@ pipeline {
                 sh 'docker login $REGISTRY_REPOSITORY -u $REGISTRY_USER -p $REGISTRY_PASS'
                 sh 'docker run -d --name source portus.ingeint.com/idempiere-source sleep 60'
                 sh 'docker cp source:/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./source-idempiere '
-                archiveArtifacts artifacts: '/source-idempiere', fingerprint: true
-                  stash includes: '/source-idempiere', name: 'workspace'
+                sh 'cd source-idempiere'
+                sh 'zip -9 -r idempiereServer.gtk.linux.x86_64.zip source-idempiere'
+
+                archiveArtifacts artifacts: 'idempiereServer.gtk.linux.x86_64.zip', fingerprint: true
+                stash includes: 'idempiereServer.gtk.linux.x86_64.zip', name: 'target'
+                
                 sh 'docker rm -f source '
             }
         }
