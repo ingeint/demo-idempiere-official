@@ -17,7 +17,7 @@ pipeline {
                 sh 'docker run -d --name source portus.ingeint.com/idempiere-source sleep 60'
                 sh 'rm -R source-idempiere'
                 sh 'docker cp source:/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./source-idempiere '
-                zip zipFile: '.tmp/idempiereServer.gtk.linux.x86_64.zip', dir: 'source-idempiere', archive: true
+                zip archive: true, dir: 'source-idempiere', glob: '', zipFile: 'idempiereServer.gtk.linux.x86_64.zip'
                 sh 'docker rm -f source '
             }
         }
