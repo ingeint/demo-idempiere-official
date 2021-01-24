@@ -18,9 +18,6 @@ pipeline {
                 sh 'docker cp source:/idempiere/org.idempiere.p2/target/products/org.adempiere.server.product/linux/gtk/x86_64 ./source-idempiere '
                 sh 'zip -9 -r idempiereServer.gtk.linux.x86_64.zip source-idempiere'
                 sh 'ls'
-
-                archiveArtifacts artifacts: '/idempiereServer.gtk.linux.x86_64.zip', fingerprint: true
-                
                 sh 'docker rm -f source '
             }
         }
