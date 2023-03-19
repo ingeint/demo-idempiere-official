@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   idempiere:
-    image: idempiereofficial/idempiere:9
+    image: idempiereofficial/idempiere:10
     ports:
       - 8091:8080
       - 8612:12612
     environment:
-      - TZ=America/Guayaquil
+      - TZ=America/Caracas
       - MIGRATE_EXISTING_DATABASE=true
     networks:
       - idempiere_demo_official
@@ -23,7 +23,7 @@ services:
   postgres:
     image: postgres:13
     environment:
-      - TZ=America/Guayaquil
+      - TZ=America/Caracas
       - POSTGRES_PASSWORD=postgres
     networks:
       - idempiere_demo_official
