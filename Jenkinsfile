@@ -10,6 +10,7 @@ pipeline {
     stages {
         stage('Deploy iDempiere Demo') {
             steps {
+                sh 'whoami'
                 sh 'docker network create --driver overlay --scope swarm $NETWORK_NAME || true'
                 sh 'docker stack rm $PROJECT_NAME || true'
                 sh 'sleep 2'
